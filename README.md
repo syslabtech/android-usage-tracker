@@ -36,7 +36,7 @@ Welcome to the **Usage Access Monitor** repository! This is an open-source Andro
 
 ### Signed Releases
 
-This repository is configured to automatically build and attach **Signed Release APKs** to GitHub Releases whenever you push a version tag (e.g., `v1.0`).
+This repository is configured to automatically build and attach **Signed Release APKs** to GitHub Releases simply by pushing to the `master` branch. Each push will automatically generate a new release using the build number.
 
 To enable this feature, you must configure the following **Repository Secrets** in your GitHub Settings (`Settings > Secrets and variables > Actions > New repository secret`):
 

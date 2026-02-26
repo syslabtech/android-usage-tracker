@@ -3,8 +3,6 @@ name: Android Build
 on:
   push:
     branches: [ "master", "main" ]
-    tags:
-      - 'v*'
   pull_request:
     branches: [ "master", "main" ]
 
@@ -26,43 +24,52 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug --stacktrace
-
       - name: Build Release APK
         run: ./gradlew assembleRelease --stacktrace
 
-      - name: Upload Debug APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+      - name: Sign APK manually
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          ALIAS: ${{ secrets.ALIAS }}
+        run: |
+          # Create a directory for signed output
+          mkdir -p signed_apk
+          
+          # Decode the Base64 keystore into a file
+          echo $SIGNING_KEY | base64 -d > release.keystore
+          
+          # Find the Android Build Tools path
+          BUILD_TOOLS_DIR=$(ls -d $ANDROID_HOME/build-tools/* | tail -1)
+          
+          # Paths to the Unsigned and Signed APKs
+          UNSIGNED_APK="app/build/outputs/apk/release/app-release-unsigned.apk"
+          ALIGNED_APK="signed_apk/app-release-aligned.apk"
+          SIGNED_APK="signed_apk/app-release.apk"
+          
+          # Align the APK using zipalign
+          $BUILD_TOOLS_DIR/zipalign -v -p 4 $UNSIGNED_APK $ALIGNED_APK
+          
+          # Sign the aligned APK using apksigner
+          $BUILD_TOOLS_DIR/apksigner sign --ks release.keystore \
+            --ks-key-alias $ALIAS \
+            --ks-pass pass:$KEY_STORE_PASSWORD \
+            --key-pass pass:$KEY_PASSWORD \
+            --out $SIGNED_APK $ALIGNED_APK
 
-      - name: Sign Release APK
-        id: sign_app
-        uses: r0adkll/sign-android-release@v1
-        with:
-          releaseDirectory: app/build/outputs/apk/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-          buildToolsVersion: 34.0.0
-
-      - name: Upload Release Signed APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release
-          path: ${{steps.sign_app.outputs.signedReleaseFile}}
-
-      - name: Create GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
-        with:
-          files: ${{steps.sign_app.outputs.signedReleaseFile}}
-          name: Release ${{ github.ref_name }}
-          generate_release_notes: true
-          draft: false
-          prerelease: false
+      - name: Create Release and Upload APK
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Generate a dynamic tag based on the commit hash and run number
+          TAG_NAME="build-${{ github.run_number }}-$(git rev-parse --short HEAD)"
+          RELEASE_NAME="Auto Build #${{ github.run_number }}"
+          
+          # Create a Release using GitHub CLI
+          gh release create "$TAG_NAME" \
+            --title "$RELEASE_NAME" \
+            --notes "Automated release triggered by push to master." \
+            signed_apk/app-release.apk
+
