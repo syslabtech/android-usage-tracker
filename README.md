@@ -34,6 +34,19 @@ Welcome to the **Usage Access Monitor** repository! This is an open-source Andro
 4. Build and run the app on your emulator or physical device.
 5. On the first launch, the app will prompt you to grant **Usage Access** permissions. This is required for the application to function correctly.
 
+### Signed Releases
+
+This repository is configured to automatically build and attach **Signed Release APKs** to GitHub Releases whenever you push a version tag (e.g., `v1.0`).
+
+To enable this feature, you must configure the following **Repository Secrets** in your GitHub Settings (`Settings > Secrets and variables > Actions > New repository secret`):
+
+- `SIGNING_KEY`: The base64-encoded string of your generated `.keystore` file.
+- `ALIAS`: The alias you used when generating the keystore.
+- `KEY_STORE_PASSWORD`: The password for your keystore.
+- `KEY_PASSWORD`: The password for your key.
+
+> **Note:** Included in this repo is a helper script `generate_keystore.sh` that you can run locally to generate the required keystore file and display instructions on how to obtain the base64-encoded string for the `SIGNING_KEY` secret. Make sure never to commit your real `.keystore` file!
+
 ## Tech Stack
 - **Language:** Kotlin
 - **UI Toolkit:** Jetpack Compose
