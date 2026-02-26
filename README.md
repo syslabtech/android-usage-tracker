@@ -1,5 +1,7 @@
 # Usage Access Monitor
 
+[![Android Build](https://github.com/syslabtech/android-usage-tracker/actions/workflows/build.yml/badge.svg)](https://github.com/syslabtech/android-usage-tracker/actions/workflows/build.yml)
+
 Welcome to the **Usage Access Monitor** repository! This is an open-source Android application designed to capture and display detailed usage information for applications on your device. The goal is to help you understand your app usage patterns to make informed decisions and improve your self-awareness regarding app permissions.
 
 ## Features
