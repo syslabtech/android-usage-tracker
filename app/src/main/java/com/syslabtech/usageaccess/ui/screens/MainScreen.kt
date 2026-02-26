@@ -1,4 +1,4 @@
-package com.example.usageaccess.ui.screens
+package com.syslabtech.usageaccess.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,9 +16,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import com.example.usageaccess.data.AppUsageInfo
-import com.example.usageaccess.data.StorageHelper
-import com.example.usageaccess.data.UsageStatsHelper
+import com.syslabtech.usageaccess.data.AppUsageInfo
+import com.syslabtech.usageaccess.data.StorageHelper
+import com.syslabtech.usageaccess.data.UsageStatsHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

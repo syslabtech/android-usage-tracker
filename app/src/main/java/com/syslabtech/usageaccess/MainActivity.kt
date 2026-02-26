@@ -1,4 +1,4 @@
-package com.example.usageaccess
+package com.syslabtech.usageaccess
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.usageaccess.ui.theme.UsageAccessAppTheme
+import com.syslabtech.usageaccess.ui.theme.UsageAccessAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    com.example.usageaccess.ui.AppNavigation()
+                    com.syslabtech.usageaccess.ui.AppNavigation()
                 }
             }
         }

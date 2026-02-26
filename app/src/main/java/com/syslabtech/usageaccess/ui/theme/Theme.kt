@@ -1,4 +1,4 @@
-package com.example.usageaccess.ui.theme
+package com.syslabtech.usageaccess.ui.theme
 
 import android.app.Activity
 import android.os.Build

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.usageaccess"
+    namespace = "com.syslabtech.usageaccess"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.usageaccess"
+        applicationId = "com.syslabtech.usageaccess"
         minSdk = 28
         targetSdk = 35
         versionCode = 1

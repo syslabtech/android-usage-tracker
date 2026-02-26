@@ -1,4 +1,4 @@
-package com.example.usageaccess.ui
+package com.syslabtech.usageaccess.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -19,8 +19,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.usageaccess.ui.screens.HistoryScreen
-import com.example.usageaccess.ui.screens.MainScreen
+import com.syslabtech.usageaccess.ui.screens.HistoryScreen
+import com.syslabtech.usageaccess.ui.screens.MainScreen
 
 sealed class Screen(val route: String, val title: String, val icon: ImageVector) {
     object Main : Screen("main", "Today", Icons.Filled.Home)

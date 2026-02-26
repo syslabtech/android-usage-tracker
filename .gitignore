@@ -50,6 +50,7 @@ captures/
 .idea/deploymentTargetSelector.xml
 
 # Keystore files
+*.keystore
 # Uncomment the following line if you do not want to commit your keystore files
 # *.jks
 # *.keystore

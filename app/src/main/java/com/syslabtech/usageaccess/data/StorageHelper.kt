@@ -1,4 +1,4 @@
-package com.example.usageaccess.data
+package com.syslabtech.usageaccess.data
 
 import android.content.Context
 import org.json.JSONArray

@@ -1,4 +1,4 @@
-package com.example.usageaccess.data
+package com.syslabtech.usageaccess.data
 
 data class AppUsageInfo(
     val packageName: String,

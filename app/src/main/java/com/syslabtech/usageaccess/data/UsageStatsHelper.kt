@@ -1,4 +1,4 @@
-package com.example.usageaccess.data
+package com.syslabtech.usageaccess.data
 
 import android.app.AppOpsManager
 import android.app.usage.UsageStatsManager
