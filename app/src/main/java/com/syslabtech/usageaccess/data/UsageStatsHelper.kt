@@ -48,11 +48,9 @@ object UsageStatsHelper {
         val startTime = calendar.timeInMillis
         val endTime = System.currentTimeMillis()
 
-        val usageStatsList = usageStatsManager.queryUsageStats(
-            UsageStatsManager.INTERVAL_DAILY, startTime, endTime
-        )
+        val usageStatsMap = usageStatsManager.queryAndAggregateUsageStats(startTime, endTime)
 
-        return usageStatsList.filter { it.totalTimeInForeground > 0 }
+        return usageStatsMap.values.filter { it.totalTimeInForeground > 0 }
             .map {
                 val appName = try {
                     val info = pm.getApplicationInfo(it.packageName, 0)
